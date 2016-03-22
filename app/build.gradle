@@ -17,9 +17,13 @@ android {
         versionName "1.0"
     }
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+        }
+        release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFile 'proguard-square-picasso.pro'
         }
     }
 }
@@ -29,4 +33,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:design:23.2.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
