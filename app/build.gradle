@@ -5,6 +5,18 @@ repositories {
     jcenter { url "http://jcenter.bintray.com/" }
 }
 
+//http://stackoverflow.com/questions/25854849/use-a-local-properties-field-when-declaring-a-buildconfigfield
+def getProps(String propName) {
+    def propsFile = rootProject.file('local.properties')
+    if (propsFile.exists()) {
+        def props = new Properties()
+        props.load(new FileInputStream(propsFile))
+        return props[propName]
+    } else {
+        return "";
+    }
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -19,6 +31,7 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
+            buildConfigField 'String', 'THE_MOVIEDB_API_KEY', getProps("THE_MOVIEDB_API_KEY")
         }
         release {
             minifyEnabled true
