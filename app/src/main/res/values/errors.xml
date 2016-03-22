@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_data_fetching">Error fetching data from the server</string>
+</resources>
