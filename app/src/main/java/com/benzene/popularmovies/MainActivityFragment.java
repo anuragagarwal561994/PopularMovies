@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.benzene.popularmovies.api.TheMovieDBAPI;
-import com.benzene.popularmovies.model.PopularMovies;
+import com.benzene.popularmovies.model.MovieResults;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment implements retrofit2.Callback<PopularMovies> {
+public class MainActivityFragment extends Fragment implements retrofit2.Callback<MovieResults> {
     private static final String LOG_TAG = MainActivityFragment.class.getSimpleName();
 
     public MainActivityFragment() {
@@ -45,19 +45,19 @@ public class MainActivityFragment extends Fragment implements retrofit2.Callback
                 .build();
 
         TheMovieDBAPI theMovieDBAPI = retrofit.create(TheMovieDBAPI.class);
-        Call<PopularMovies> call = theMovieDBAPI.getPopular(BuildConfig.THE_MOVIEDB_API_KEY);
+        Call<MovieResults> call = theMovieDBAPI.getPopular(BuildConfig.THE_MOVIEDB_API_KEY);
 
         call.enqueue(this);
     }
 
     @Override
-    public void onResponse(Call<PopularMovies> call, Response<PopularMovies> response) {
-        PopularMovies popularMovies = response.body();
+    public void onResponse(Call<MovieResults> call, Response<MovieResults> response) {
+        MovieResults popularMovies = response.body();
         Log.d(LOG_TAG, popularMovies.getTotalPages().toString());
     }
 
     @Override
-    public void onFailure(Call<PopularMovies> call, Throwable t) {
+    public void onFailure(Call<MovieResults> call, Throwable t) {
         Toast.makeText(
                 getActivity(),
                 getString(R.string.error_data_fetching),

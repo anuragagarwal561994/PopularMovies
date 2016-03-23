@@ -2,7 +2,7 @@ package com.benzene.popularmovies.model;
 
 import java.util.List;
 
-public class PopularMovies {
+public class MovieResults {
     Integer page;
     List<Movie> results;
     Integer total_results;
