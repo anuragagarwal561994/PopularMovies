@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import com.benzene.popularmovies.api.TheMovieDBAPI;
@@ -21,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class MainActivityFragment extends Fragment implements retrofit2.Callback<MovieResults> {
     private static final String LOG_TAG = MainActivityFragment.class.getSimpleName();
+    private MovieListAdapter mMovieListAdapter;
 
     public MainActivityFragment() {
     }
@@ -35,6 +37,11 @@ public class MainActivityFragment extends Fragment implements retrofit2.Callback
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+        final GridView gridView = (GridView) rootView.findViewById(R.id.grid_view);
+        mMovieListAdapter = new MovieListAdapter(getActivity());
+        gridView.setAdapter(mMovieListAdapter);
+
         return rootView;
     }
 
@@ -52,8 +59,9 @@ public class MainActivityFragment extends Fragment implements retrofit2.Callback
 
     @Override
     public void onResponse(Call<MovieResults> call, Response<MovieResults> response) {
-        MovieResults popularMovies = response.body();
-        Log.d(LOG_TAG, popularMovies.getTotalPages().toString());
+        //TODO: show an image when there are no images
+        mMovieListAdapter.clear();
+        mMovieListAdapter.addAll(response.body().getResults());
     }
 
     @Override
