@@ -151,7 +151,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
 
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.sort_order_key)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_sort_key)));
         }
 
         @Override

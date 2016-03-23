@@ -8,6 +8,10 @@
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
 
-    <string name="sort_order_key">sortOrder</string>
-    <string name="sort_order_title">Sort Order</string>
+    <string name="pref_sort_label">Sort Order</string>
+    <string name="pref_sort_label_popular">Popular</string>
+    <string name="pref_sort_label_top_rated">Top Rated</string>
+    <string name="pref_sort_key" translatable="false">sort</string>
+    <string name="pref_sort_popular" translatable="false">Popular</string>
+    <string name="pref_sort_top_rated" translatable="false">Top Rated</string>
 </resources>
