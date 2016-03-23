@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">PopularMovies</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="sort_order_key">sortOrder</string>
+    <string name="sort_order_title">Sort Order</string>
 </resources>
