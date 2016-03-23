@@ -68,4 +68,8 @@ public class Movie {
     public Float getVoteAverage() {
         return vote_average;
     }
+
+    public String getAbsolutePosterPath() {
+        return "http://image.tmdb.org/t/p/w185/" + getPosterPath();
+    }
 }
