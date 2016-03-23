@@ -2,7 +2,6 @@ package com.benzene.popularmovies;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +22,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivityFragment extends Fragment implements retrofit2.Callback<MovieResults> {
     private static final String LOG_TAG = MainActivityFragment.class.getSimpleName();
     private MovieListAdapter mMovieListAdapter;
+    private TheMovieDBAPI theMovieDBAPI;
 
     public MainActivityFragment() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://api.themoviedb.org")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        theMovieDBAPI = retrofit.create(TheMovieDBAPI.class);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        updatePopularMovies();
+        getPopularMoviesCall().enqueue(this);
     }
 
     @Override
@@ -45,16 +51,12 @@ public class MainActivityFragment extends Fragment implements retrofit2.Callback
         return rootView;
     }
 
-    private void updatePopularMovies() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.themoviedb.org")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+    private Call<MovieResults> getTopRatedMoviesCall() {
+        return theMovieDBAPI.getTopRated(BuildConfig.THE_MOVIEDB_API_KEY);
+    }
 
-        TheMovieDBAPI theMovieDBAPI = retrofit.create(TheMovieDBAPI.class);
-        Call<MovieResults> call = theMovieDBAPI.getPopular(BuildConfig.THE_MOVIEDB_API_KEY);
-
-        call.enqueue(this);
+    private Call<MovieResults> getPopularMoviesCall() {
+        return theMovieDBAPI.getPopular(BuildConfig.THE_MOVIEDB_API_KEY);
     }
 
     @Override
