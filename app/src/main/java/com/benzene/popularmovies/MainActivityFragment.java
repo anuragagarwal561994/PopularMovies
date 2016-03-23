@@ -1,7 +1,10 @@
 package com.benzene.popularmovies;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +39,22 @@ public class MainActivityFragment extends Fragment implements retrofit2.Callback
     @Override
     public void onStart() {
         super.onStart();
-        getPopularMoviesCall().enqueue(this);
+        updateMovieList();
+    }
+
+    public void updateMovieList() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String sortOrder = prefs.getString(
+                getString(R.string.pref_sort_key),
+                getString(R.string.pref_sort_popular));
+
+        if (sortOrder.equals(getString(R.string.pref_sort_popular))) {
+            getPopularMoviesCall().enqueue(this);
+        } else if (sortOrder.equals(getString(R.string.pref_sort_top_rated))) {
+            getTopRatedMoviesCall().enqueue(this);
+        } else {
+            Log.d(LOG_TAG, getString(R.string.sort_order_not_found) + ": " + sortOrder);
+        }
     }
 
     @Override

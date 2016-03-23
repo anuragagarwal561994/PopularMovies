@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_data_fetching">Error fetching data from the server</string>
+    <string name="sort_order_not_found">Sort Order not found</string>
 </resources>
