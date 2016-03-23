@@ -5,7 +5,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +69,13 @@ public class MainActivityFragment extends Fragment implements retrofit2.Callback
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         final GridView gridView = (GridView) rootView.findViewById(R.id.grid_view);
+
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        display.getMetrics(displayMetrics);
+        gridView.setNumColumns(Math.round(displayMetrics.widthPixels / TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 185, displayMetrics)));
+
         mMovieListAdapter = new MovieListAdapter(getActivity());
         gridView.setAdapter(mMovieListAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
