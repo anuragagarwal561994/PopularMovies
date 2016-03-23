@@ -1,5 +1,6 @@
 package com.benzene.popularmovies;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -8,10 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
 import com.benzene.popularmovies.api.TheMovieDBAPI;
+import com.benzene.popularmovies.model.Movie;
 import com.benzene.popularmovies.model.MovieResults;
 
 import retrofit2.Call;
@@ -65,6 +68,15 @@ public class MainActivityFragment extends Fragment implements retrofit2.Callback
         final GridView gridView = (GridView) rootView.findViewById(R.id.grid_view);
         mMovieListAdapter = new MovieListAdapter(getActivity());
         gridView.setAdapter(mMovieListAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Movie movie = (Movie) mMovieListAdapter.getItem(position);
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra("com.benzene.PopularMovies.model.Movie", movie);
+                startActivity(intent);
+            }
+        });
 
         return rootView;
     }
